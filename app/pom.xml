@@ -37,12 +37,6 @@
             <artifactId>msvc_customers</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-             <dependency>
-            <groupId>io.opentelemetry.instrumentation</groupId>
-            <artifactId>opentelemetry-logback-appender-1.0</artifactId>
-            <version>2.21.0-alpha</version>
-            <scope>runtime</scope>
-        </dependency>
         <dependency>
             <groupId>com.dojo</groupId>
             <artifactId>msvc_orders</artifactId>
@@ -68,8 +62,7 @@
             <artifactId>opentelemetry-api</artifactId>
             <version>1.32.0</version>
         </dependency>
-
-        <!-- OpenTelemetry Instrumentation Annotations (opcional, para @WithSpan) -->
+        <!-- OpenTelemetry Instrumentation Annotations (para @WithSpan) -->
         <dependency>
             <groupId>io.opentelemetry.instrumentation</groupId>
             <artifactId>opentelemetry-instrumentation-annotations</artifactId>
@@ -81,7 +74,6 @@
             <version>12.25.0</version>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -98,5 +90,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
