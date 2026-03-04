@@ -1,24 +1,42 @@
 <configuration>
-
+    <!-- Appender clásico de consola -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <logger name="org.springframework" level="ERROR"/>
-    <logger name="org.hibernate"       level="ERROR"/>
-    <logger name="io.opentelemetry"    level="WARN"/>
-    <logger name="org.apache.catalina" level="ERROR"/>
-    <logger name="org.apache.coyote"   level="ERROR"/>
-    <logger name="org.apache.tomcat"   level="ERROR"/>
-
-    <logger name="com.dojo" level="INFO" additivity="false">
-        <appender-ref ref="CONSOLE"/>
-    </logger>
+    <!-- Appender OpenTelemetry -->
+    <appender name="OTEL" class="io.opentelemetry.instrumentation.logback.appender.v1_0.OpenTelemetryAppender">
+        <captureExperimentalAttributes>false</captureExperimentalAttributes>
+        <captureKeyValuePairAttributes>true</captureKeyValuePairAttributes>
+        <captureMarkerAttribute>false</captureMarkerAttribute>
+        <captureCodeAttributes>false</captureCodeAttributes>
+        <captureMdcAttributes></captureMdcAttributes>
+    </appender>
 
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="OTEL"/>
     </root>
 
+<!--    &lt;!&ndash; Logger para tu aplicación &ndash;&gt;-->
+<!--    <logger name="org.springframework" level="INFO" additivity="false">-->
+<!--        &lt;!&ndash; En consola se muestran INFO/WARN/ERROR &ndash;&gt;-->
+<!--        <appender-ref ref="CONSOLE"/>-->
+<!--        &lt;!&ndash; En OTEL solo se muestran ERROR &ndash;&gt;-->
+<!--        <appender-ref ref="OTEL" level="ERROR"/>-->
+<!--    </logger>-->
+
+    <logger name="org.springframework" level="ERROR"/>
+    <logger name="org.hibernate" level="ERROR"/>
+    <logger name="io.opentelemetry" level="WARN"/>
+    <logger name="org.apache.catalina" level="ERROR"/>
+    <logger name="org.apache.coyote" level="ERROR"/>
+    <logger name="org.apache.tomcat" level="ERROR"/>
+<!--    <logger name="com.zaxxer.hikari" level="ERROR"/>-->
+
+    <logger name="com.dojo" level="INFO" additivity="false">
+        <appender-ref ref="OTEL"/>
+    </logger>
 </configuration>
